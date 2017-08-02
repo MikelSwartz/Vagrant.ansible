@@ -1,1 +1,1 @@
-apt-get install ansible -y
+apt-get install ansible vim -y
