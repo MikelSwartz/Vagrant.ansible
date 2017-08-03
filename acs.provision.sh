@@ -1,1 +1,1 @@
-apt-get install ansible vim -y
+apt-get install ansible vim sshpass tree -y
