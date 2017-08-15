@@ -26,6 +26,7 @@ Vagrant.configure("2") do |config|
     db.vm.box = "geerlingguy/centos7"
     db.vm.hostname = "db"
     db.vm.network "private_network", ip: "192.168.33.30"
+    db.vm.provision "shell", path: "db.provision.sh"
   end
 
 end
