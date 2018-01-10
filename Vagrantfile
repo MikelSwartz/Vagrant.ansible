@@ -6,7 +6,6 @@
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
 Vagrant.configure("2") do |config|
- 
   config.vm.define "acs" do |acs|
     acs.vm.box = "ubuntu/trusty64"
     acs.vm.hostname = "acs"
@@ -19,7 +18,7 @@ Vagrant.configure("2") do |config|
     web.vm.box = "geerlingguy/centos7"
     web.vm.hostname = "web"
     web.vm.network "private_network", ip: "192.168.33.20"
-    web.vm.network "forwarded_port", guest: 80, host: 8080
+    web.vm.network "forwarded_port", guest: 80, host: 8081
   end
   
   config.vm.define "db" do |db|
@@ -29,4 +28,13 @@ Vagrant.configure("2") do |config|
     db.vm.provision "shell", path: "db.provision.sh"
   end
 
+  config.vm.define "arch" do |arch|
+#    arch.vm.box = "archlinux/archlinux"
+#    arch.vm.box = "terrywang/archlinux"
+    arch.vm.box = "generic/arch"
+    arch.vm.hostname = "arch"
+    arch.vm.network "private_network", ip: "192.168.33.50"
+    arch.vm.provision "shell", path: "arch.provision.sh"
+  end
+#  VBoxManage modifyvm "arch" --natpf1 "guestssh,tcp,,2222,,22"
 end
