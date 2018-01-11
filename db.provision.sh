@@ -5,4 +5,4 @@ if [ -s mysql-community-release-el7-5.noarch.rpm ] ; then
 else
   wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
 fi
-rpm -ivh mysql-community-release-el7-5.noarch.rpm 
+#rpm -ivh mysql-community-release-el7-5.noarch.rpm 
