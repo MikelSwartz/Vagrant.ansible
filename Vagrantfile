@@ -10,7 +10,6 @@ Vagrant.configure("2") do |config|
     acs.vm.provision "shell", path: "acs.provision.sh"
   end
 
-
   config.vm.define "web" do |web|
     web.vm.box = "geerlingguy/centos7"
     web.vm.hostname = "web"
