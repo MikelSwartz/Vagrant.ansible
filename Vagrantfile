@@ -1,10 +1,7 @@
-# -*- mode: ruby -*-
+#
+#-*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# All Vagrant configuration is done below. The "2" in Vagrant.configure
-# configures the configuration version (we support older styles for
-# backwards compatibility). Please don't change it unless you know what
-# you're doing.
 Vagrant.configure("2") do |config|
   config.vm.define "acs" do |acs|
     acs.vm.box = "ubuntu/trusty64"
@@ -21,6 +18,20 @@ Vagrant.configure("2") do |config|
     web.vm.network "forwarded_port", guest: 80, host: 8081
   end
   
+  config.vm.define "rhweb" do |rhweb|
+    rhweb.vm.box = "geerlingguy/centos7"
+    rhweb.vm.hostname = "rhweb"
+    rhweb.vm.network "private_network", ip: "192.168.33.21"
+    rhweb.vm.network "forwarded_port", guest: 80, host: 8083
+  end
+  
+  config.vm.define "dweb" do |dweb|
+    dweb.vm.box = "hashicorp/precise64"
+    dweb.vm.hostname = "dweb"
+    dweb.vm.network "private_network", ip: "192.168.33.25"
+    dweb.vm.network "forwarded_port", guest: 80, host: 8082
+  end
+
   config.vm.define "db" do |db|
     db.vm.box = "geerlingguy/centos7"
     db.vm.hostname = "db"
@@ -29,12 +40,9 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define "arch" do |arch|
-#    arch.vm.box = "archlinux/archlinux"
-#    arch.vm.box = "terrywang/archlinux"
     arch.vm.box = "generic/arch"
     arch.vm.hostname = "arch"
     arch.vm.network "private_network", ip: "192.168.33.50"
     arch.vm.provision "shell", path: "arch.provision.sh"
   end
-#  VBoxManage modifyvm "arch" --natpf1 "guestssh,tcp,,2222,,22"
 end
