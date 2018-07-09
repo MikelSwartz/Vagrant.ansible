@@ -11,7 +11,8 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define "web" do |web|
-    web.vm.box = "geerlingguy/centos7"
+#    web.vm.box = "geerlingguy/centos7"
+    web.vm.box = "bmcgonigle/centos68"
     web.vm.hostname = "web"
     web.vm.network "private_network", ip: "192.168.33.20"
     web.vm.network "forwarded_port", guest: 80, host: 8081
@@ -39,9 +40,16 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define "arch" do |arch|
-    arch.vm.box = "generic/arch"
+    arch.vm.box = "ogarcia/archlinux-x64"
     arch.vm.hostname = "arch"
     arch.vm.network "private_network", ip: "192.168.33.50"
+    arch.vm.provision "shell", path: "arch.provision.sh"
+  end
+
+  config.vm.define "arch1" do |arch|
+    arch.vm.box = "terrywang/archlinux"
+    arch.vm.hostname = "arch1"
+    arch.vm.network "private_network", ip: "192.168.33.51"
     arch.vm.provision "shell", path: "arch.provision.sh"
   end
 end
