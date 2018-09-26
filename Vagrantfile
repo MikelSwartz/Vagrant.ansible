@@ -3,6 +3,16 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 5120
+  end
+  config.vm.define "acs_docker" do |acs_docker|
+    acs_docker.vm.box = "ubuntu/trusty64"
+    acs_docker.vm.hostname = "acs-docker"
+    acs_docker.vm.network "private_network", ip: "192.168.33.40"
+    acs_docker.vm.provision "shell", path: "acs_docker.provision.sh"
+  end
+
   config.vm.define "acs" do |acs|
     acs.vm.box = "ubuntu/trusty64"
     acs.vm.hostname = "acs"
